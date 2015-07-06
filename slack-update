@@ -1,0 +1,17 @@
+#!/bin/bash
+
+slackrepo=/var/lib/slack-repo/freepto/
+remote=https://github.com/avana-bbs/freepto-slack
+branch=master
+
+if [[ ! -d "$slackrepo" ]]; then
+	mkdir -p "$(dirname "$slackrepo")"
+	git clone "$remote" "$slackrepo"
+	cd "$slackrepo"
+	git reset --hard "origin/$branch"
+	exit $?
+fi
+
+cd "$slackrepo"
+git fetch origin
+git reset --hard "origin/$branch"
